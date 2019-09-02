@@ -1,7 +1,4 @@
-# Relation-Classification-via-Convolutional-Deep-Neural-Network
-Relation Classification via Convolutional Deep Neural Network :
-https://aclweb.org/anthology/C14-1220
-
+## Relation Classification via Convolutional Deep Neural Network
 
 TensorFlow implementation of [the paper](http://www.aclweb.org/anthology/C14-1220),
 
