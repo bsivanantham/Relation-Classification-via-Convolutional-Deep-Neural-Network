@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/snlp.iml" filepath="$PROJECT_DIR$/.idea/snlp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Relation-Classification-via-Convolutional-Deep-Neural-Network.iml" filepath="$PROJECT_DIR$/.idea/Relation-Classification-via-Convolutional-Deep-Neural-Network.iml" />
     </modules>
   </component>
 </project>
