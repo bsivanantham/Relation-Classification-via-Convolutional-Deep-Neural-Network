@@ -117,7 +117,7 @@ class CNNModel(BaseModel):
         if not is_train:
             return
 
-            # global_step = tf.train.get_or_create_global_step()
+        # global_step = tf.train.get_or_create_global_step()
         global_step = tf.Variable(0, trainable=False, name='step', dtype=tf.int32)
         optimizer = tf.train.AdamOptimizer(lrn_rate)
 

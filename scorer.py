@@ -4,13 +4,16 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import classification_report
 
-def caluclator(TrueList, PredList):
+
+def calculator(TrueList, PredList):
     y_true = TrueList
     y_pred = PredList
 
-    AllTarget_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin', 'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer', '_Other']
+    AllTarget_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin',
+                       'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer', '_Other']
     final_classificationReport = classification_report(y_true, y_pred, target_names=AllTarget_names)
-    Target_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin', 'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer']
+    Target_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin',
+                    'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer']
     final_accuracy = accuracy_score(y_true, y_pred)
     final_precision = precision_score(y_true, y_pred, average='macro', labels=Target_names)
     final_recall = recall_score(y_true, y_pred, average='macro', labels=Target_names)
@@ -77,7 +80,8 @@ def main():
             testkeys_file_list.append('_Other')
     file_2.close()
 
-    caluclator(testkeys_file_list, result_file_list)
+    calculator(testkeys_file_list, result_file_list)
+
 
 if __name__ == '__main__':
     main()
