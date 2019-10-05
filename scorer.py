@@ -1,92 +1,83 @@
-#
-#  Author: Balavivek Sivanantham
-#          bsivanantham@techfak.uni-bielefeld.de
-#          Universität Bielefeld
-#
-#  WHAT: This is the official scorer for SemEval-2010 Task #8.
-#
-#  Last modified: September 16, 2019
-#
-#  Current version: 1.0
-#
-#  Use:
-#     semeval2010_task8_scorer-v1.1.pl <PROPOSED_ANSWERS> <ANSWER_KEY>
-#
-#  Example2:
-#     semeval2010_task8_scorer-v1.1.pl proposed_answer1.txt answer_key1.txt > result_scores1.txt
-#     semeval2010_task8_scorer-v1.1.pl proposed_answer2.txt answer_key2.txt > result_scores2.txt
-#     semeval2010_task8_scorer-v1.1.pl proposed_answer3.txt answer_key3.txt > result_scores3.txt
-#
-#  Description:
-#     The scorer takes as input a proposed classification file and an answer key file.
-#     Both files should contain one prediction per line in the format "<SENT_ID>	<RELATION>"
-#     with a TAB as a separator, e.g.,
-#           1	Component-Whole(e2,e1)
-#           2	Other
-#           3	Instrument-Agency(e2,e1)
-#               ...
-#     The files do not have to be sorted in any way and the first file can have predictions
-#     for a subset of the IDs in the second file only, e.g., because hard examples have been skipped.
-#     Repetitions of IDs are not allowed in either of the files.
-#
-#     The scorer calculates and outputs the following statistics:
-#        (1) confusion matrix, which shows
-#           - the sums for each row/column: -SUM-
-#           - the number of skipped examples: skip
-#           - the number of examples with correct relation, but wrong directionality: xDIRx
-#           - the number of examples in the answer key file: ACTUAL ( = -SUM- + skip + xDIRx )
-#        (2) accuracy and coverage
-#        (3) precision (P), recall (R), and F1-score for each relation
-#        (4) micro-averaged P, R, F1, where the calculations ignore the Other category.
-#        (5) macro-averaged P, R, F1, where the calculations ignore the Other category.
-#
-#     Note that in scores (4) and (5), skipped examples are equivalent to those classified as Other.
-#     So are examples classified as relations that do not exist in the key file (which is probably not optimal).
-#
-#     The scoring is done three times:
-#       (i)   as a (2*9+1)-way classification
-#       (ii)  as a (9+1)-way classification, with directionality ignored
-#       (iii) as a (9+1)-way classification, with directionality taken into account.
-#
-#     The official score is the macro-averaged F1-score for (iii).
-#
+from sklearn.metrics import f1_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import classification_report
 
-###############
-###   I/O   ###
-###############
+def caluclator(TrueList, PredList):
+    y_true = TrueList
+    y_pred = PredList
 
-import sys
-
-if len(sys.argv) != 1:
-    print('Usage:\nsemeval2010_task8_scorer.pl <PROPOSED_ANSWERS> <ANSWER_KEY>\n')
-
-PROPOSED_ANSWERS_FILE_NAME = sys.argv[0]
-ANSWER_KEYS_FILE_NAME = sys.argv[1]
-
-################
-###   MAIN   ###
-################
+    AllTarget_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin', 'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer', '_Other']
+    final_classificationReport = classification_report(y_true, y_pred, target_names=AllTarget_names)
+    Target_names = ['Cause-Effect', 'Component-Whole', 'Content-Container', 'Entity-Destination', 'Entity-Origin', 'Instrument-Agency', 'Member-Collection', 'Message-Topic', 'Product-Producer']
+    final_accuracy = accuracy_score(y_true, y_pred)
+    final_precision = precision_score(y_true, y_pred, average='macro', labels=Target_names)
+    final_recall = recall_score(y_true, y_pred, average='macro', labels=Target_names)
+    final_f1score = f1_score(y_true, y_pred, average='macro', labels=Target_names)
+    print("-----------------------------------------------")
+    print("---------------Result Table--------------------")
+    print("-----------------------------------------------")
+    print(final_classificationReport)
+    print("-----------------------------------------------")
+    print('Accuracy: \t %f \n' % final_accuracy)
+    print('Precision: \t %f \n' % final_precision)
+    print('Recall: \t %f \n' % final_recall)
+    print('F1 score: \t %f \n' % final_f1score)
+    print("-----------------------------------------------")
+    print("-----------------------------------------------")
 
 
-### 1. Read the file contents
+def main():
+    result_file = "data/results.txt"
+    testkeys_file = "data/test_keys.txt"
 
+    result_file_list = []
+    testkeys_file_list = []
 
-totalProposed = readFileIntoHash(PROPOSED_ANSWERS_FILE_NAME, idsProposed)
+    # opening and reading the file1 - Result file
+    file_1 = open(result_file, "r")
+    for x in file_1:
+        my_string = x
+        step_0 = my_string.split('\t')
+        step_1 = step_0[1]
+        step_2 = step_1.strip('\n')
+        if '(e1,e2)' in step_2:
+            step_3 = step_2.split('(e1,e2)')
+            step_4 = step_3[0]
+            step_5 = step_4
+            result_file_list.append(step_5)
+        if '(e2,e1)' in step_2:
+            step_3 = step_2.split('(e2,e1)')
+            step_4 = step_3[0]
+            step_5 = step_4
+            result_file_list.append(step_5)
+        if step_2 == 'Other':
+            result_file_list.append('_Other')
+    file_1.close()
 
+    # opening and reading the file2 - Original Key file
+    file_2 = open(testkeys_file, "r")
+    for x in file_2:
+        my_string = x
+        step_0 = my_string.split('\t')
+        step_1 = step_0[1]
+        step_2 = step_1.strip('\n')
+        if '(e1,e2)' in step_2:
+            step_3 = step_2.split('(e1,e2)')
+            step_4 = step_3[0]
+            step_5 = step_4
+            testkeys_file_list.append(step_5)
+        if '(e2,e1)' in step_2:
+            step_3 = step_2.split('(e2,e1)')
+            step_4 = step_3[0]
+            step_5 = step_4
+            testkeys_file_list.append(step_5)
+        if step_2 == 'Other':
+            testkeys_file_list.append('_Other')
+    file_2.close()
 
-######################
-###   FUNCTIONS   ####
-######################
+    caluclator(testkeys_file_list, result_file_list)
 
-def getIDandLabel():
-    pass
-
-
-def readFileIntoHash(fname, ids):
-    lineNo = 0
-    for line in open(fname):
-        lineNo = lineNo + 1
-        id, label = getIDandLabel()
-        if ()
-
-    pass
+if __name__ == '__main__':
+    main()
