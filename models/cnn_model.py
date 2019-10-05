@@ -21,10 +21,10 @@ def linear_layer(name, x, in_size, out_size, is_regularize=False):
 
 def cnn_forward(name, sent_pos, lexical, num_filters):
     with tf.variable_scope(name):
-        input = tf.expand_dims(sent_pos, axis=-1)
-        input_dim = input.shape.as_list()[2]
+        input_data = tf.expand_dims(sent_pos, axis=-1)
+        input_dim = input_data.shape.as_list()[2]
 
-        # convolutional layer
+        # convolution layer
         pool_outputs = []
         for filter_size in [3, 4, 5]:
             with tf.variable_scope('conv-%s' % filter_size):
@@ -33,7 +33,7 @@ def cnn_forward(name, sent_pos, lexical, num_filters):
                                               initializer=tf.truncated_normal_initializer(stddev=0.1))
                 conv_bias = tf.get_variable('b1', [num_filters],
                                             initializer=tf.constant_initializer(0.1))
-                conv = tf.nn.conv2d(input,
+                conv = tf.nn.conv2d(input_data,
                                     conv_weight,
                                     strides=[1, 1, input_dim, 1],
                                     padding="SAME")
@@ -46,14 +46,16 @@ def cnn_forward(name, sent_pos, lexical, num_filters):
                                       padding="SAME")  # batch_size, 1, 1, num_filters
                 pool_outputs.append(pool)
         pools = tf.reshape(tf.concat(pool_outputs, 3), [-1, 3 * num_filters])
+
 ###############################################
         # dense = tf.layers.dense(inputs=pools, units=1024, activation=tf.nn.relu)
         # dropout = tf.layers.dropout(
         #     inputs=dense, rate=0.2, training=mode == tf.estimator.ModeKeys.TRAIN)
         #
-        # # Logits Layer
-        # logits = tf.layers.dense(inputs=dropout, units=10)
+        # Logits Layer
+        # Logits = tf.layers.dense(inputs=dropout, units=10)
 #########################################
+
         # feature
         feature = pools
         if lexical is not None:
@@ -62,15 +64,16 @@ def cnn_forward(name, sent_pos, lexical, num_filters):
 
 
 class CNNModel(BaseModel):
-    '''
-  Relation Classification via Convolutional Deep Neural Network
+    """
+  Relation Classification via Convolution Deep Neural Network
   http://www.aclweb.org/anthology/C14-1220
-  '''
+  """
 
     def __init__(self, word_embed, data, word_dim,
                  pos_num, pos_dim, num_relations,
                  keep_prob, num_filters,
                  lrn_rate, is_train):
+
         # input data
         lexical, rid, sentence, pos1, pos2 = data
 
@@ -135,7 +138,7 @@ class CNNModel(BaseModel):
 
 
 def build_train_valid_model(word_embed, train_data, test_data):
-    '''Relation Classification via Convolutional Deep Neural Network'''
+    """Relation Classification via Convolutional Deep Neural Network"""
     with tf.name_scope("Train"):
         with tf.variable_scope('CNNModel', reuse=None):
             m_train = CNNModel(word_embed, train_data, FLAGS.word_dim,

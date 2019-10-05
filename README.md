@@ -37,28 +37,3 @@ to run the code:
 
 
 
-##  Problem
-when you use Spyder or PyCharm to run this code, you may encounter this error: 
-
-```
-ArgumentError: argument --train_file: conflicting option string: --train_file
-```
-
-solution:
-
-1. restart spyder
-
-2. or add annotation for all definitions of ```tf.flags.FLAGS``` .
-
-such as ```# flags.DEFINE_string("train_file", "data/train.cln", 
-                             "original training file")```
-
-## Difference 
-
-1. delete 'the hidden layer 2' as [the paper mentioned](http://www.aclweb.org/anthology/C14-1220)
-2. use muti - window size(w=3,w=4,w=5) in convolution layer
-3. delete Wordnet lexical feature
-
-
-
-
