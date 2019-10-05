@@ -6,10 +6,6 @@ dataset: SemEval2010 task8
 
 word embeddings: senna
 
-to run the code:
-```
-./run
-```
 
 ## Environment
 - tensorflow 1.4.0
@@ -20,20 +16,17 @@ to run the code:
 
 - to train model
 
-    `./run`
+    `python3 train.py  --num_epochs=200 --word_dim=50`
     
-    where ```num_epochs=200 --word_dim=50```have been set in 'run' file.
 -  to test model
  
-    excute 
-
     `python src/train.py  --num_epochs=200 --word_dim=50 --test`
 
     then you can get a 'results.txt'  file in ```/data/resuts.txt```
 
 - to calculate F1 score
 
-    ```perl src/scorer.pl data/test_keys.txt data/results.txt```
+    ```python scorer.py data/test_keys.txt data/results.txt```
 
 
 
