@@ -12,6 +12,16 @@ word embeddings: senna
 - python 3.5
 - linux,macOs or windows
 
+## Basic Installation:
+
+```bash
+1. git clone https://github.com/bsivanantham/Relation-Classification-via-Convolutional-Deep-Neural-Network.git
+2. cd Relation-Classification-via-Convolutional-Deep-Neural-Network
+3. pip install .
+or
+3. python setup.py install
+```
+
 ## How to run ?
 
 - to train model
