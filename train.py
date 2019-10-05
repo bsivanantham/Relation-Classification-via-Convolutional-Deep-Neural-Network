@@ -1,10 +1,10 @@
-import os
-import time
 import sys
+import time
+
 import tensorflow as tf
-import numpy as np
-from reader import base as base_reader
+
 from models import cnn_model
+from reader import base as base_reader
 
 # tf.set_random_seed(0)
 # np.random.seed(0)
@@ -112,9 +112,9 @@ def train(sess, m_train, m_valid):
                     best = v_acc
                     best_step = n
                     m_train.save(sess, best_step)
-                    #change made here in print satement and *100
+                    # change made here in print satement and *100
                 print("Epoch %d, loss %.2f, TrainingAccuracy %.2f ValidationAccuracy %.2f, time %.2f" %
-                      (epoch, loss, acc*100, v_acc*100, duration))
+                      (epoch, loss, acc * 100, v_acc * 100, duration))
                 sys.stdout.flush()
             n += 1
         except tf.errors.OutOfRangeError:

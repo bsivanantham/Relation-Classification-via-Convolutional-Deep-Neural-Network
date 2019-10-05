@@ -1,6 +1,5 @@
-from statistics import mode
-
 import tensorflow as tf
+
 from models.base_model import BaseModel
 
 FLAGS = tf.app.flags.FLAGS
@@ -46,15 +45,6 @@ def cnn_forward(name, sent_pos, lexical, num_filters):
                                       padding="SAME")  # batch_size, 1, 1, num_filters
                 pool_outputs.append(pool)
         pools = tf.reshape(tf.concat(pool_outputs, 3), [-1, 3 * num_filters])
-
-###############################################
-        # dense = tf.layers.dense(inputs=pools, units=1024, activation=tf.nn.relu)
-        # dropout = tf.layers.dropout(
-        #     inputs=dense, rate=0.2, training=mode == tf.estimator.ModeKeys.TRAIN)
-        #
-        # Logits Layer
-        # Logits = tf.layers.dense(inputs=dropout, units=10)
-#########################################
 
         # feature
         feature = pools

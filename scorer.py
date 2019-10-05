@@ -87,6 +87,6 @@ def readFileIntoHash(fname, ids):
     for line in open(fname):
         lineNo = lineNo + 1
         id, label = getIDandLabel()
-        if()
+        if ()
 
     pass
