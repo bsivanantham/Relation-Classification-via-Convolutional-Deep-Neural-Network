@@ -1,42 +1,47 @@
 ## Relation Classification via Convolutional Deep Neural Network
 
-TensorFlow implementation of [the paper](http://www.aclweb.org/anthology/C14-1220),
+Implementation of [the paper](http://www.aclweb.org/anthology/C14-1220).
 
-dataset: SemEval2010 task8
+Dataset Used: SemEval2010 task8.
 
-word embeddings: senna
+Word Embeddings: senna.
 
 
 ## Environment
-- tensorflow 1.4.0
-- python 3.5
-- linux,macOs or windows
+- OS: linux.
+- Python: python 3.6.
+- FrameWork: Tensorflow 1.4.0.
+- Virtual Environment: virtualenv 15.1.0
+- Installation File: requirements.txt
 
-## Basic Installation:
+## Installation:
 
 ```bash
 1. git clone https://github.com/bsivanantham/Relation-Classification-via-Convolutional-Deep-Neural-Network.git
 2. cd Relation-Classification-via-Convolutional-Deep-Neural-Network
-3. pip install .
-or
-3. python setup.py install
+3. sudo apt install virtualenv
+4. virtualenv --python=python3.6 or python3 venv
+5. source venv/bin/activate
+6. pip install -r requirements.txt
+- To deactivate the virtual environment:
+7. deactivate
 ```
 
-## How to run ?
+## Train, Test and Calculate
 
-- to train model
+- To train model
 
-    `python3 train.py  --num_epochs=200 --word_dim=50`
+    `python train.py  --num_epochs=200 --word_dim=50`
     
--  to test model
+- To test model
  
-    `python src/train.py  --num_epochs=200 --word_dim=50 --test`
+    `python train.py  --num_epochs=200 --word_dim=50 --test`
 
-    then you can get a 'results.txt'  file in ```/data/resuts.txt```
+    --> This will generate the 'results.txt' file in ```/data/results.txt```.
 
-- to calculate F1 score
+- To calculate and get Classification Report, Accuracy, Precision, Recall and F1 score
 
-    ```python scorer.py data/test_keys.txt data/results.txt```
+    `python scorer.py data/test_keys.txt data/results.txt`
 
 
 

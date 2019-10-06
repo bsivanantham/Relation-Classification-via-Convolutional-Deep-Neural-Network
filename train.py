@@ -6,8 +6,6 @@ import tensorflow as tf
 from models import cnn_model
 from reader import base as base_reader
 
-# tf.set_random_seed(0)
-# np.random.seed(0)
 
 flags = tf.app.flags
 
@@ -30,7 +28,7 @@ flags.DEFINE_string("test_record", "data/test.tfrecord", "Test file of TFRecord 
 flags.DEFINE_string("relations_file", "data/relations.txt", "relations file")
 flags.DEFINE_string("results_file", "data/results.txt", "predicted results file")
 flags.DEFINE_string("logdir", "saved_models/", "where to save the model")
-#
+
 flags.DEFINE_integer("max_len", 96, "max length of sentences")
 flags.DEFINE_integer("num_relations", 19, "number of relations")
 flags.DEFINE_integer("word_dim", 50, "word embedding size")
@@ -73,7 +71,6 @@ def train(sess, m_train, m_valid):
                     best = v_acc
                     best_step = n
                     m_train.save(sess, best_step)
-                    # change made here in print satement and *100
                 print("Epoch %d, loss %.2f, TrainingAccuracy %.2f ValidationAccuracy %.2f, time %.2f" %
                       (epoch, loss, acc * 100, v_acc * 100, duration))
                 sys.stdout.flush()
@@ -107,13 +104,11 @@ def main(_):
         m_train.set_saver('cnn-%d-%d' % (FLAGS.num_epochs, FLAGS.word_dim))
 
         init_op = tf.group(tf.global_variables_initializer(),
-                           tf.local_variables_initializer())  # for file queue
+                           tf.local_variables_initializer())
 
         config = tf.ConfigProto()
-        # config.gpu_options.per_process_gpu_memory_fraction = 0.9 # 占用GPU90%的显存
         config.gpu_options.allow_growth = True
 
-        # sv finalize the graph
         with tf.Session(config=config) as sess:
             sess.run(init_op)
             print('=' * 80)
