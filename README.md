@@ -20,7 +20,8 @@ Word Embeddings: senna.
 1. git clone https://github.com/bsivanantham/Relation-Classification-via-Convolutional-Deep-Neural-Network.git
 2. cd Relation-Classification-via-Convolutional-Deep-Neural-Network
 3. sudo apt install virtualenv
-4. virtualenv --python=python3.6 or python3 venv
+4. virtualenv --python=python3.6 venv
+               or python3 venv
 5. source venv/bin/activate
 6. pip install -r requirements.txt
 - To deactivate the virtual environment:
