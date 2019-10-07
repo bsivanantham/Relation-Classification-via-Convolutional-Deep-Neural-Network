@@ -223,6 +223,7 @@ Confusion matrix:
       +--------------------------------------------------+
  -SUM-  325  306  188  291  258  156  233  257  230  454   2698    19     0   2717
 
+
 Coverage = 2717/2717 = 100.00%
 Accuracy (calculated for the above confusion matrix) = 2125/2717 = 78.21%
 Accuracy (considering all skipped examples as Wrong) = 2125/2717 = 78.21%
