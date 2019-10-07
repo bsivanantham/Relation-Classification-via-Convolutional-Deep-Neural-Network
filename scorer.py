@@ -1,3 +1,8 @@
+#----------------------------------------------------------------------------------------------------------------------
+#  Authors: Mohith Bhargav Sunkara, Balavivek Sivanantham and Noureldin Alaa
+#          msunkara@techfak.uni-bielefeld.de, bsivanantham@techfak.uni-bielefeld.de, nbadr@techfak.uni-bielefeld.de
+#          Bielefeld University
+#----------------------------------------------------------------------------------------------------------------------
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
@@ -19,8 +24,12 @@ def caluclator(TrueList, PredList):
     print("-----------------------------------------------")
     print("---------------Result Table--------------------")
     print("-----------------------------------------------")
+    print("Classification Report for all the categories including _Other")
+    print("-----------------------------------------------")
     print(final_classificationReport)
     print("-----------------------------------------------")
+    print("-----------------------------------------------")
+    print("Accuracy and Macro-averaged P, R, F1 excluding _Other category")
     print('Accuracy: \t %f \n' % final_accuracy)
     print('Precision: \t %f \n' % final_precision)
     print('Recall: \t %f \n' % final_recall)

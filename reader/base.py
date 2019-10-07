@@ -1,3 +1,8 @@
+#----------------------------------------------------------------------------------------------------------------------
+#  Authors: Mohith Bhargav Sunkara, Balavivek Sivanantham and Noureldin Alaa
+#          msunkara@techfak.uni-bielefeld.de, bsivanantham@techfak.uni-bielefeld.de, nbadr@techfak.uni-bielefeld.de
+#          Bielefeld University
+#----------------------------------------------------------------------------------------------------------------------
 import os
 from collections import namedtuple
 
@@ -237,12 +242,6 @@ def inputs():
             FLAGS.senna_embed50_file,
             FLAGS.senna_words_file,
             FLAGS.trimmed_embed50_file)
-    elif FLAGS.word_dim == 300:
-        word_embed, vocab2id = maybe_trim_embeddings(
-            FLAGS.vocab_file,
-            FLAGS.google_embed300_file,
-            FLAGS.google_words_file,
-            FLAGS.trimmed_embed300_file)
 
     # map words to ids
     map_words_to_id(raw_train_data, vocab2id)

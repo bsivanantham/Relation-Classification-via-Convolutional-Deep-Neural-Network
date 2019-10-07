@@ -1,5 +1,9 @@
+#----------------------------------------------------------------------------------------------------------------------
+#  Authors: Mohith Bhargav Sunkara, Balavivek Sivanantham and Noureldin Alaa
+#          msunkara@techfak.uni-bielefeld.de, bsivanantham@techfak.uni-bielefeld.de, nbadr@techfak.uni-bielefeld.de
+#          Bielefeld University
+#----------------------------------------------------------------------------------------------------------------------
 import tensorflow as tf
-
 from models.base_model import BaseModel
 
 FLAGS = tf.app.flags.FLAGS

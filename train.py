@@ -1,3 +1,8 @@
+#----------------------------------------------------------------------------------------------------------------------
+#  Authors: Mohith Bhargav Sunkara, Balavivek Sivanantham and Noureldin Alaa
+#          msunkara@techfak.uni-bielefeld.de, bsivanantham@techfak.uni-bielefeld.de, nbadr@techfak.uni-bielefeld.de
+#          Bielefeld University
+#----------------------------------------------------------------------------------------------------------------------
 import sys
 import time
 
@@ -13,10 +18,6 @@ flags.DEFINE_string("train_file", "data/train.cln", "original training file")
 flags.DEFINE_string("test_file", "data/test.cln", "original test file")
 
 flags.DEFINE_string("vocab_file", "data/vocab.txt", "vocab of train and test data")
-
-flags.DEFINE_string("google_embed300_file", "data/embed300.google.npy", "google news word embeddding")
-flags.DEFINE_string("google_words_file", "data/google_words.lst", "google words list")
-flags.DEFINE_string("trimmed_embed300_file", "data/embed300.trim.npy", "trimmed google embedding")
 
 flags.DEFINE_string("senna_embed50_file", "data/embed50.senna.npy", "senna words embeddding")
 flags.DEFINE_string("senna_words_file", "data/senna_words.lst", "senna words list")
